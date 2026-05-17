@@ -1,7 +1,7 @@
 import streamlit as st
 from utils.extractText import extractTextFromPdf
-import time
 import previousScans
+from matcher import calculateMatchScores
 
 
 #makes home page the default
@@ -48,8 +48,8 @@ if st.session_state.get("page") == "home":
     #analyze button
     if st.button("Analyze", disabled=not canAnalyze):
         with st.spinner("Analyzing..."):
-            time.sleep(3) #will add actual analysis logic later
-        st.success("Analysis complete!")
+            score = calculateMatchScores(extractedContent, jobDescription)
+        st.success(f"Analysis complete! Your match score is: {score}%")
 
     if not canAnalyze:
         if extractedContent is None:
