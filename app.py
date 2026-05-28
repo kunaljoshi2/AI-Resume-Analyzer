@@ -1,7 +1,7 @@
 import streamlit as st
 from utils.extractText import extractTextFromPdf
 import previousScans
-from matcher import calculateMatchScores
+from matcher import calculateMatchScores, extractKeywords
 
 
 #makes home page the default
@@ -34,7 +34,7 @@ if st.session_state.get("page") == "home":
     if uploadedFile:
     
         try:
-            st.success(f"Uploaded: {uploadedFile.name}")
+            st.toast(f"Uploaded: {uploadedFile.name}")
             extractedContent = extractTextFromPdf(uploadedFile)
 
         except Exception as e:
@@ -49,7 +49,12 @@ if st.session_state.get("page") == "home":
     if st.button("Analyze", disabled=not canAnalyze):
         with st.spinner("Analyzing..."):
             score = calculateMatchScores(extractedContent, jobDescription)
+        
         st.success(f"Analysis complete! Your match score is: {score}%")
+
+        matched, missing = extractKeywords(extractedContent, jobDescription)
+        st.write(f"Matched Words: {matched}")
+        st.write(f"Missing Words: {missing}")
 
     if not canAnalyze:
         if extractedContent is None:
