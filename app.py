@@ -51,13 +51,13 @@ if st.session_state.get("page") == "home":
             st.session_state["score"] = calculateMatchScores(extractedContent, jobDescription)
             st.session_state["matched"], st.session_state["missing"] = extractKeywords(extractedContent, jobDescription)
             st.session_state["analyzed"] = True
+            st.session_state["showResults"] = False
 
         st.success(f"Analysis complete!")
 
     if st.session_state.get("analyzed"):
 
         st.markdown("""
-
             <style>
                 .st-key-seeResultsButton button{
                     border: 3px solid black;
@@ -65,48 +65,47 @@ if st.session_state.get("page") == "home":
                     font-size: 20px;
                     text-align: center;
                 }
-
             </style>
         """, unsafe_allow_html=True)
 
+        if not st.session_state.get("showResults"):
+            if st.button("See Results", key="seeResultsButton"):
+                st.session_state["showResults"] = True 
+                st.rerun()
 
-        if st.button("See Results", key="seeResultsButton"):
+        if st.session_state.get("showResults"):
             score = st.session_state.get("score")
             matched = st.session_state.get("matched")
             missing = st.session_state.get("missing")
-            
+
             st.markdown("""
                 <style>
-  
-                .st-key-scoreSubheader h3 {
-                    background-color: green;
-                    color: white;
-                    border: 3px solid black;
-                    border-radius: 15px;
-                    font-size: 30px;
-                    text-align: center;
-                    text-transform: uppercase;
-                }
+                    .st-key-scoreSubheader h3 {
+                        background-color: green;
+                        color: white;
+                        border: 3px solid black;
+                        border-radius: 15px;
+                        font-size: 30px;
+                        text-align: center;
+                        text-transform: uppercase;
+                    }
                 </style>
             """, unsafe_allow_html=True)
 
             with st.container(key="scoreSubheader"):
                 st.subheader(f"Your match score is: {score}%")
 
-
             col1, col2 = st.columns(2)
-            matched, missing = extractKeywords(extractedContent, jobDescription)
 
             with col1:
                 st.subheader("Matched Keywords:")
-                pills = " ".join([f"<span style='background-color: white; color: black; padding: 6px 10px; border-radius: 20px; margin: 4px; display: inline-block'>{word}</span>" for word in matched])
+                pills = " ".join([f"<span style='background-color: white; color: black; padding: 6px 10px; border-radius: 10px; margin: 4px; display: inline-block'>{word}</span>" for word in matched])
                 st.markdown(pills, unsafe_allow_html=True)
 
             with col2:
                 st.subheader("Missing Keywords:")
-                pills = " ".join([f"<span style='background-color: white; color: black; padding: 6px 10px; border-radius: 20px; margin: 4px; display: inline-block'> {word}</span>" for word in missing])
+                pills = " ".join([f"<span style='background-color: white; color: black; padding: 6px 10px; border-radius: 10px; margin: 4px; display: inline-block'>{word}</span>" for word in missing])
                 st.markdown(pills, unsafe_allow_html=True)
-        
 
 
     if not canAnalyze:
