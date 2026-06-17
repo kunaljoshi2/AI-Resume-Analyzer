@@ -6,7 +6,13 @@ customStopWords = list(ENGLISH_STOP_WORDS) + [
     "bonus", "candidate", "ideal", "looking", "required",
     "strong", "familiar", "familiarity", "plus", "like",
     "worked", "libraries", "processing", "experience",
-    "skills", "looking", "engineer", "intern"
+    "skills", "looking", "engineer", "intern", "actions",
+    "qualify", "daily", "utilize", "leverage", "ensure",
+    "support", "assist", "help", "manage", "maintain", 
+    "perform", "execute", "handle", "oversee", "contribute",
+    "position", "responsibilities", "qualifications", "requirements",
+    "duties", "tasks", "work", "job", "career", "company", "team",
+    "member", "environment", "culture", "using"
 ]
 
 
