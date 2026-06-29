@@ -1,11 +1,10 @@
-from PyPDF2 import PdfReader
-
+import pdfplumber
 
 def extractTextFromPdf(uploadedFile):
-    reader = PdfReader(uploadedFile)
-    numberOfPages = len(reader.pages)
-    page = reader.pages[0]
-    text = page.extract_text()
-
+    text = ""
+    with pdfplumber.open(uploadedFile) as pdf:
+        for page in pdf.pages:
+            pageText = page.extract_text()
+            if pageText:
+                text += pageText + "\n"
     return text
-
