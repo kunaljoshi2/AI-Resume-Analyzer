@@ -1,25 +1,13 @@
 import streamlit as st
 from utils.extractText import extractTextFromPdf
-import previousScans
 from matcher import calculateMatchScores, extractKeywords
+from downloadReport import downloadReport
+from datetime import date, datetime
 
 
 #makes home page the default
 if "page" not in st.session_state:
     st.session_state["page"] = "home"
-
-#nav bar (sidebar)
-with st.sidebar:
-    st.title("Navigation")
-    
-    if st.button("Home", use_container_width=True):
-        st.session_state["page"] = "home"
-
-    if st.button("Previous Scans", use_container_width=True):
-        st.session_state["page"] = "previousScans"
-
-    st.divider()
-
 
 
 if st.session_state.get("page") == "home":
@@ -94,6 +82,7 @@ if st.session_state.get("page") == "home":
 
             with st.container(key="scoreSubheader"):
                 st.subheader(f"Your match score is: {score}%")
+                st.caption("*NOTE: matched scores above 40% indicate a strong keyword match")
 
             col1, col2 = st.columns(2)
 
@@ -106,6 +95,14 @@ if st.session_state.get("page") == "home":
                 st.subheader("Missing Keywords:")
                 pills = " ".join([f"<span style='background-color: white; color: black; padding: 6px 10px; border-radius: 10px; margin: 4px; display: inline-block'>{word}</span>" for word in missing])
                 st.markdown(pills, unsafe_allow_html=True)
+
+            
+            st.download_button(
+                label="Download Report",
+                data = downloadReport(score, missing, matched),
+                file_name = "match_report.pdf",
+                mime="application/pdf",
+            )
 
 
     if not canAnalyze:

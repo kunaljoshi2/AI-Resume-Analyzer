@@ -16,7 +16,17 @@ customStopWords = list(ENGLISH_STOP_WORDS) + [
     "duties", "tasks", "work", "job", "career", "company", "team",
     "member", "environment", "culture", "using", "alongside", "participate",
     "real", "world", "person", "multi", "additionally", "fundamental", "proven",
-    "portfolio", "possess", "include", "write", "logs", "audit", "managing"
+    "portfolio", "possess", "include", "write", "logs", "audit", "managing",
+    "gap", "hand", "prepare", "rely", "know", "live", "need", "prepare", "you",
+    "background", "seek", "understand", "requirements", "use", "nice", "small", "motivated", 
+    "related", "field", "drive", "join", "communication", "proficiency", "preprocess",
+    "look", "internal", "hybrid", "month", "op", "bc", "vancouver",
+    "startup", "tech", "undergrad", "pursue", "responsibility", "review",
+    "exposure", "library", "dataset", "document", "structure", "tool",
+    "training", "technique", "tokenization", "workflow", "stratification",
+    "diagnostic", "clinician", "clinical", "patient", "medical", "health",
+    "healthcare", "dashboard", "containerized", "degree", "code",
+    "collaboration", "risk", "directly", "cs", "applications", "evaluate", "risk"
 ]
 
 def lemmatization(text):
@@ -82,7 +92,3 @@ def extractKeywords(resumeText, jobDescription):
                 missing.append(word)
 
     return matched, missing
-
-
-
-
