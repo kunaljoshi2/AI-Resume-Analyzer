@@ -111,8 +111,3 @@ if st.session_state.get("page") == "home":
 
         elif not jobDescription or not jobDescription.strip():
             st.info("Enter a job description to enable analysis.")
-
-
-elif st.session_state.get("page") == "previousScans":
-
-    previousScans.show()
