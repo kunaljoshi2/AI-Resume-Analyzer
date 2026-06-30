@@ -32,6 +32,7 @@ customStopWords = list(ENGLISH_STOP_WORDS) + [
 def lemmatization(text):
 
     #cleaning
+    text = re.sub(r'([a-z])([A-Z])', r'\1 \2', text)
     text = re.sub(r'([.!?,()\-])', r' \1 ', text)
     text = re.sub(r'\s+', ' ', text).strip()
 
