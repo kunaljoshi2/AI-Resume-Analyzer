@@ -21,6 +21,7 @@ https://ai-resume-analyzer-kj.streamlit.app/
 - SpaCy (lemmatization)
 - pdfplumber (PDF text extraction)
 - fpdf2 (PDF report generation)
+- CSS3
 
 ## Setup
 
